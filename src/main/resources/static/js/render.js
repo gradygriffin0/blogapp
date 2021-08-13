@@ -10,7 +10,11 @@ export default function render(props, route) {
     const title = `REST Blog - ${route.title}`;
     history.pushState(props, title, route.uri);
     document.title = title;
+
+    // append the specific view to the html
     app.innerHTML = `${Navbar(null)} ${route.returnView(props)}`;
+
+    //if view event is there add it AFTER the view is appended
     if (route.viewEvent){
         route.viewEvent();
     }

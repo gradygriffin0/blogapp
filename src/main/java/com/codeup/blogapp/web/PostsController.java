@@ -35,8 +35,20 @@ public class PostsController {
 
 
     @PostMapping
-    private void createPosts(){
+    private void createPosts(@RequestBody Post newPost){
+        System.out.println(newPost.getTitle());
+        System.out.println(newPost.getContent());
+    }
 
+
+    @PutMapping("{id}")
+    private void updatePost(@PathVariable Long id){
+        System.out.println("Successful edit @: " + id);
+    }
+
+    @DeleteMapping("{id}")
+    private void deletePost(@PathVariable Long id){
+        System.out.println("Successful delete @: " + id);
     }
 
 }
