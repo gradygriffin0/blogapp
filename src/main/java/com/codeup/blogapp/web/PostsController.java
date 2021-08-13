@@ -10,45 +10,53 @@ import java.util.List;
 @RequestMapping(value = "/api/posts", headers = "Accept=application/json")
 public class PostsController {
 
+    private List<Post> Posts;
 
-    // depending on HTTP METHOD GET POST PUT DELETE on endpoint /api/posts -> the method with that annotation fires
-    @GetMapping()
-    private List<Post> getPosts(){
-        return new ArrayList<Post>(){{
+
+    PostsController() {
+        Posts = new ArrayList<Post>() {{
             add(new Post(1, "My first post", "1asdfasdfasdfasdfasdfasdfasdfasdfasdf"));
             add(new Post(2, "My second post", "2asdfasdfasdfasdfasdfasdfasdfasdfasdf"));
             add(new Post(3, "My third post", "3asdfasdfasdfasdfasdfasdfasdfasdfasdf"));
             add(new Post(4, "My fourth post", "4asdfasdfasdfasdfasdfasdfasdfasdfasdf"));
-
         }};
     }
 
+    // depending on HTTP METHOD GET POST PUT DELETE on endpoint /api/posts -> the method with that annotation fires
+    @GetMapping()
+    private List<Post> getPosts() {
+        return Posts;
+    }
+
     @GetMapping("{id}")
-    private Post getPostById(@PathVariable Long id){
-        if (id == 1){
-        return new Post(1, "My first post", "1asdfasdfasdfasdfasdfasdfasdfasdfasdf");
-        }
-        else{
-            return null;
-        }
+    private Post getPostById(@PathVariable int id) {
+        return Posts.get(id);
     }
 
 
     @PostMapping
-    private void createPosts(@RequestBody Post newPost){
+    private void createPosts(@RequestBody Post newPost) {
         System.out.println(newPost.getTitle());
         System.out.println(newPost.getContent());
+
+        int id = Posts.size();
+        newPost.setId((long) id);
+        Posts.add(newPost);
+
     }
 
 
     @PutMapping("{id}")
-    private void updatePost(@PathVariable Long id){
-        System.out.println("Successful edit @: " + id);
+    private void updatePost(@PathVariable Post post) {
+        Posts.set(Math.toIntExact(post.getId()), post);
+        System.out.println("Successful edit @: " + post);
     }
 
     @DeleteMapping("{id}")
-    private void deletePost(@PathVariable Long id){
+    private void deletePost(@PathVariable int id) {
+        Posts.remove(id);
         System.out.println("Successful delete @: " + id);
+
     }
 
 }
