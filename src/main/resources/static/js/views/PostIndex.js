@@ -78,7 +78,6 @@ export function loadEvents() {
 }
 
 export function putEvent(prop) {
-
     console.log(prop);
     $(".editAnchor").each(function(){
         console.log($(this));
