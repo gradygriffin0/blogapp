@@ -73,7 +73,7 @@ export default function Register(props){
 }
 
 export function LoadRegisterEvents(){
-
+    submitForm();
 
 }
 
@@ -89,10 +89,11 @@ function submitForm(){
             flag = true;
         }
 
-        if (!($("#emailInput").val().contains('@'))){
-            alert("Does not match standard email format");
-            flag = true;
-        }
+        // if (!($("#emailInput").val().contains('@'))){
+        //     alert("Does not match standard email format");
+        //     flag = true;
+        // }
+
         if (!($("#passwordInput").val().length >= 5)){
             alert("Password needs to be at-least 5 characters");
             flag = true;
