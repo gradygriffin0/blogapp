@@ -1,3 +1,5 @@
+import createView from "../createView.js";
+
 export default function Register(props){
     return `
 <!DOCTYPE html>
@@ -106,11 +108,21 @@ function submitForm(){
                 username: $("#usernameInput").val(),
                 email: $("#emailInput").val(),
                 password: $("#emailInput").val(),
-                date: Date.now(),
+                createdAt: new Date().getTime(),
                 role: 'USER'
             }
             $.ajax({
-                url: "http://localhost:8080/api/posts/${id}"
+                url: "http://localhost:8080/api/users",
+                method: "POST",
+                headers: {
+                    "accept" : "application/json",
+                    "content-type" : "application/json"},
+                data: JSON.stringify(user),
+            }).success(function(data){
+                console.log(data)
+                createView('/')
+            }).error(function(e){
+                console.log(e);
             })
         }
     })

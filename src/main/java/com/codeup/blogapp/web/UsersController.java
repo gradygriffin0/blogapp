@@ -38,6 +38,7 @@ public class UsersController {
 
     @PostMapping
     private void createUser(@RequestBody User newUser){
+
         System.out.println(newUser.getUsername());
         System.out.println(newUser.getEmail());
     }
