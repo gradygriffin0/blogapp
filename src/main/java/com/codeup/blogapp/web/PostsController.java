@@ -20,6 +20,13 @@ public class PostsController {
             add(new Post(3, "My third post", "3asdfasdfasdfasdfasdfasdfasdfasdfasdf"));
             add(new Post(4, "My fourth post", "4asdfasdfasdfasdfasdfasdfasdfasdfasdf"));
         }};
+        System.out.println(Posts.size());
+        for (int i = 0; i < Posts.size(); i++) {
+            System.out.println(Posts.get(i));
+        }
+        for (Post post : Posts){
+            System.out.println(post.getId());
+        }
     }
 
     // depending on HTTP METHOD GET POST PUT DELETE on endpoint /api/posts -> the method with that annotation fires
@@ -46,13 +53,14 @@ public class PostsController {
     }
 
 
-    @PutMapping("{id}")
-    private void updatePost(@PathVariable Post post) {
-        Posts.set(Math.toIntExact(post.getId()), post);
-        System.out.println("Successful edit @: " + post);
+    @PutMapping("/{id}")
+    private void updatePost(@PathVariable long id, @RequestBody Post post) {
+
+
+        System.out.println("Successful edit @: " + id);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     private void deletePost(@PathVariable int id) {
         Posts.remove(id);
         System.out.println("Successful delete @: " + id);

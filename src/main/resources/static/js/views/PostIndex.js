@@ -19,14 +19,14 @@ export default function PostIndex(props) {
                 
                 <main>
              <div class="row mb-2">
-             ${props.posts.map(post => ` <div data-id = "${post.id}" class="col-md-6">
+             ${props.posts.map(post => ` <div data-id = "${post.id}" class="col-md-6 overflow-auto">
                       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col p-4 d-flex flex-column position-static">
                           <strong class="d-inline-block mb-2 text-primary">*New Post*</strong>
-                          <h3 data-edibtable class="titleClass mb-0">${post.title}</h3>
-                          <p class="contentClass card-text mb-auto">${post.content}.</p>
-                          <a data-id="edit-${post.id}" href="#" class="editAnchor">Edit</a>
-                          <a data-id="delete-${post.id}" href="#" class="">Delete</a>
+                          <h3 contenteditable="" class="titleClass mb-0">${post.title}</h3>
+                          <p contenteditable="" class="contentClass card-text mb-auto">${post.content}.</p>
+                          <a data-id="${post.id}" href="#" class="editAnchor">Edit</a>
+                          <a data-id="${post.id}" href="#" class="deleteAnchor">Delete</a>
                         </div>
                         <div class="col-auto d-none d-lg-block">
                           <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
@@ -75,27 +75,80 @@ export default function PostIndex(props) {
 export function loadEvents() {
     postEvent();
     putEvent(prop);
+    deleteEvent();
+}
+
+function deleteEvent(){
+    $(".deleteAnchor").each(function(){
+        $(this).click(function(){
+            let id = $(this).attr("data-id");
+            if(confirm("Are you sure you want to delete this post?")){
+                $.ajax({
+                    url: `http://localhost:8080/api/posts/${id}`,
+                    type: "DELETE",
+                    headers: {"content-type": "application/json"},
+                }).success(function(data){
+                    createView("/posts");
+                })
+            }
+        })
+    })
 }
 
 export function putEvent(prop) {
-    console.log(prop);
     $(".editAnchor").each(function(){
-        console.log($(this));
         $(this).click(function (e) {
-            console.log($(this))
-            console.log($(this).parent());
-            console.log($(this).siblings());
+            $('.editAnchor').text("Edit");
+            $(this).text("Save");
+
+
+            $('.titleClass, .contentClass').attr('contenteditable', false);
             var $titleEl = $(this).siblings(".titleClass");
-            var $titleInput = $('<input/>').val( $titleEl.text() )
-                $titleEl.replaceWith($titleInput);
-            console.log($(this).siblings(".titleClass").val());
-            console.log($(this).siblings(".contentClass").val());
+            $titleEl.attr('contenteditable', true);
+            // var $titleInput = $('<input/>').val( $titleEl.text() )
+            //     $titleEl.replaceWith($titleInput);
+            var $contentEl = $(this).siblings(".contentClass");
+            $contentEl.attr('contenteditable', true);
+
+
+
+            $(this).on('click', submitSavedEdits)
+
+
+            // var $contentInput = $('<input/>').val( $contentEl.text())
+            // $contentEl.replaceWith($contentInput);
+
+            // $titleEl.on('blur', function(){
+            //     console.log("test1")
+            //     $titleEl.replaceWith($('<h3 data-edibtable class="titleClass mb-0">').val($titleEl.text()))
+            // })
+            // $contentEl.blur(function(){
+            //     console.log("test2")
+            //     $contentEl.replaceWith($('<p class="contentClass card-text mb-auto">').val($contentEl.text()))
+            // })
 
         })
     })
 
 }
+function submitSavedEdits(){
+    let $content = $(this).siblings(".contentClass");
+    let $title = $(this).siblings(".titleClass");
+    let post = {
+        id: $(this).attr('data-id'),
+        title: $title.text(),
+        content: $content.text()
+    }
+    $.ajax({
+        url: `http://localhost:8080/api/posts/${post.id}`,
+        type: "PUT",
+        headers: {"content-type": "application/json"},
+        data: JSON.stringify(post)
 
+    })
+    $(this).text("Edit");
+    $(this).off('click', submitSavedEdits);
+}
 export function postEvent() {
     $("#createAnchor").click(function (e) {
 
@@ -108,7 +161,6 @@ export function postEvent() {
                 "content": `${$("#textBody").val()}`
             }
             let readyPost = JSON.stringify(post);
-            console.log(readyPost);
 
             $.ajax({
                 url: "http://localhost:8080/api/posts",
@@ -117,10 +169,8 @@ export function postEvent() {
                 data: readyPost
 
             }).success(function (e) {
-                console.log(e);
                 createView("/posts");
             }).error(function (e) {
-                console.log(e);
             })
 
         })
