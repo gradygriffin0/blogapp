@@ -16,9 +16,9 @@ public class UsersController {
     private List<User> UsersController(){
 
         return new ArrayList<User>(){{
-            add(new User(1, "Gradman", "email", "password", new Date(), User.Role.ADMIN));
-            add(new User(2, "Casey", "email2", "password2", new Date(), User.Role.USER));
-            add(new User(3, "Laura", "email3", "password3", new Date(), User.Role.USER));
+            add(new User(1, "Gradman", "email", "password" /*new Date()*/));
+            add(new User(2, "Casey", "email2", "password2" /*new Date()*/));
+            add(new User(3, "Laura", "email3", "password3" /*new Date()*/));
         }};
     }
 

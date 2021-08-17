@@ -7,20 +7,19 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private Date createdAt;
-    private Role role;
+//    private Date createdAt;
+    private Role role = Role.USER;
     public enum Role {USER, ADMIN};
 
     public User() {
     }
 
-    public User(long id, String username, String email, String password, Date createdAt, Role role) {
+    public User(long id, String username, String email, String password /*Date createdAt*/) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
-        this.createdAt = createdAt;
-        this.role = role;
+//        this.createdAt = createdAt;
     }
 
     public long getId() {
@@ -55,14 +54,14 @@ public class User {
         this.password = password;
     }
 
-    public Date getCreatedAt() {
+    /*public Date getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
-
+*/
     public Role getRole() {
         return role;
     }
