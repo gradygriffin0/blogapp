@@ -1,6 +1,7 @@
 package com.codeup.blogapp.web;
 
 import com.codeup.blogapp.data.Post;
+import com.codeup.blogapp.data.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -10,21 +11,22 @@ import java.util.List;
 @RequestMapping(value = "/api/posts", headers = "Accept=application/json")
 public class PostsController {
 
-    private List<Post> Posts;
+    private List<Post> posts;
 
 
     PostsController() {
-        Posts = new ArrayList<Post>() {{
-            add(new Post(1, "My first post", "1asdfasdfasdfasdfasdfasdfasdfasdfasdf"));
-            add(new Post(2, "My second post", "2asdfasdfasdfasdfasdfasdfasdfasdfasdf"));
-            add(new Post(3, "My third post", "3asdfasdfasdfasdfasdfasdfasdfasdfasdf"));
-            add(new Post(4, "My fourth post", "4asdfasdfasdfasdfasdfasdfasdfasdfasdf"));
+        User user = new User(1l, "teste", "testing@test", "password1234", posts);
+        posts = new ArrayList<Post>() {{
+            add(new Post(1, "My first post", "1asdfasdfasdfasdfasdfasdfasdfasdfasdf", user));
+            add(new Post(2, "My second post", "2asdfasdfasdfasdfasdfasdfasdfasdfasdf", user));
+            add(new Post(3, "My third post", "3asdfasdfasdfasdfasdfasdfasdfasdfasdf", user));
+            add(new Post(4, "My fourth post", "4asdfasdfasdfasdfasdfasdfasdfasdfasdf", user));
         }};
-        System.out.println(Posts.size());
-        for (int i = 0; i < Posts.size(); i++) {
-            System.out.println(Posts.get(i));
+        System.out.println(posts.size());
+        for (int i = 0; i < posts.size(); i++) {
+            System.out.println(posts.get(i));
         }
-        for (Post post : Posts){
+        for (Post post : posts){
             System.out.println(post.getId());
         }
     }
@@ -32,12 +34,12 @@ public class PostsController {
     // depending on HTTP METHOD GET POST PUT DELETE on endpoint /api/posts -> the method with that annotation fires
     @GetMapping()
     private List<Post> getPosts() {
-        return Posts;
+        return posts;
     }
 
     @GetMapping("{id}")
     private Post getPostById(@PathVariable int id) {
-        return Posts.get(id);
+        return posts.get(id);
     }
 
 
@@ -46,9 +48,9 @@ public class PostsController {
         System.out.println(newPost.getTitle());
         System.out.println(newPost.getContent());
 
-        int id = Posts.size();
+        int id = posts.size();
         newPost.setId((long) id);
-        Posts.add(newPost);
+        posts.add(newPost);
 
     }
 
@@ -62,7 +64,7 @@ public class PostsController {
 
     @DeleteMapping("/{id}")
     private void deletePost(@PathVariable int id) {
-        Posts.remove(id);
+        posts.remove(id);
         System.out.println("Successful delete @: " + id);
 
     }
