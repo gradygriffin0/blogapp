@@ -1,5 +1,6 @@
 package com.codeup.blogapp.web;
 
+import com.codeup.blogapp.data.Category;
 import com.codeup.blogapp.data.Post;
 import com.codeup.blogapp.data.User;
 import org.springframework.web.bind.annotation.*;
@@ -12,15 +13,19 @@ import java.util.List;
 public class PostsController {
 
     private List<Post> posts;
+    List<Category> categories = new ArrayList<>();
 
 
-    PostsController() {
+     public PostsController() {
         User user = new User(1l, "teste", "testing@test", "password1234", posts);
+        categories.add(new Category(1, "Family"));
+
+
         posts = new ArrayList<Post>() {{
-            add(new Post(1, "My first post", "1asdfasdfasdfasdfasdfasdfasdfasdfasdf", user));
-            add(new Post(2, "My second post", "2asdfasdfasdfasdfasdfasdfasdfasdfasdf", user));
-            add(new Post(3, "My third post", "3asdfasdfasdfasdfasdfasdfasdfasdfasdf", user));
-            add(new Post(4, "My fourth post", "4asdfasdfasdfasdfasdfasdfasdfasdfasdf", user));
+            add(new Post(1, "My first post", "1asdfasdfasdfasdfasdfasdfasdfasdfasdf", user, categories));
+            add(new Post(2, "My second post", "2asdfasdfasdfasdfasdfasdfasdfasdfasdf", user, categories));
+            add(new Post(3, "My third post", "3asdfasdfasdfasdfasdfasdfasdfasdfasdf", user, categories));
+            add(new Post(4, "My fourth post", "4asdfasdfasdfasdfasdfasdfasdfasdfasdf", user, categories));
         }};
         System.out.println(posts.size());
         for (int i = 0; i < posts.size(); i++) {
@@ -34,6 +39,7 @@ public class PostsController {
     // depending on HTTP METHOD GET POST PUT DELETE on endpoint /api/posts -> the method with that annotation fires
     @GetMapping()
     private List<Post> getPosts() {
+
         return posts;
     }
 

@@ -22,14 +22,14 @@ export default function PostIndex(props) {
              ${props.posts.map(post => ` <div data-id = "${post.id}" class="col-md-6 overflow-auto">
                       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col p-4 d-flex flex-column position-static">
-                          <strong class="d-inline-block mb-2 text-primary">*New Post*</strong>
+                          <strong class="d-inline-block mb-2 text-primary">${post.categories[0].name}</strong>
                           <h3 contenteditable="" class="titleClass mb-0">${post.title}</h3>
                           <p contenteditable="" class="contentClass card-text mb-auto">${post.content}.</p>
                           <a data-id="${post.id}" href="#" class="editAnchor">Edit</a>
                           <a data-id="${post.id}" href="#" class="deleteAnchor">Delete</a>
                         </div>
                         <div class="col-auto d-none d-lg-block">
-                          <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                          <svg class="bd-placeholder-img " width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
                         </div>
                       </div>
                     </div>`).join('')}
