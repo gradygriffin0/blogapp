@@ -22,10 +22,16 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
-
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name="post_category",
+            joinColumns={@JoinColumn(name = "post_id")},
+            inverseJoinColumns = {@JoinColumn(name="category_id")}
+    )
     private Collection<Category> categories;
 
     public Collection<Category> getCategories() {
@@ -57,7 +63,7 @@ public class Post {
         this.user = user;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

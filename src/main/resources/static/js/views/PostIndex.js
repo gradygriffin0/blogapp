@@ -64,8 +64,6 @@ export function loadEvents() {
     deleteEvent();
 }
 function getCategoriesComponent(post, categoriesProps){
-    console.log(post);
-    console.log(categoriesProps);
 
     return `<strong className="d-inline-block mb-2 text-primary">${post.categories[0].name}</strong>`
 }
