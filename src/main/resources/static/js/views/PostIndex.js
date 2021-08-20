@@ -1,10 +1,9 @@
 import createView from "../createView.js";
 import fetchData from "../fetchData.js";
 
-var prop;
 
 export default function PostIndex(props) {
-    prop = props;
+    console.log(props);
     return `
 
         <div class="container">
@@ -18,9 +17,9 @@ export default function PostIndex(props) {
                 </div>
                 
                 <main>
-             <div class="row mb-2">01
-             ${getPostsComponent(props.posts)}
-          </div>  
+             <div class="row mb-2">
+             ${getPostsComponent(props)}
+                </div>  
             <div id="parentCreate" class="container my-5">   
                 <div id="createHouse" style="width: 80%; margin: auto;" class="d-flex justify-content-center d-none">
                     <div class="input-group">
@@ -61,14 +60,20 @@ export default function PostIndex(props) {
 
 export function loadEvents() {
     postEvent();
-    putEvent(prop);
+    putEvent();
     deleteEvent();
 }
-function getPostsComponent(posts){
-    return posts.map(post => ` <div data-id = "${post.id}" class="col-md-6 overflow-auto">
+function getCategoriesComponent(post, categoriesProps){
+    console.log(post);
+    console.log(categoriesProps);
+
+    return `<strong className="d-inline-block mb-2 text-primary">${post.categories[0].name}</strong>`
+}
+function getPostsComponent(props){
+    return props.posts.map(post => ` <div data-id = "${post.id}" class="col-md-6 overflow-auto">
                       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col p-4 d-flex flex-column position-static">
-                          <strong class="d-inline-block mb-2 text-primary">${post.categories[0].name}</strong>
+                          ${getCategoriesComponent(post, props.categories)}
                           <h3 contenteditable="" class="titleClass mb-0">${post.title}</h3>
                           <p contenteditable="" class="contentClass card-text mb-auto">${post.content}.</p>
                           <a data-id="${post.id}" href="#" class="editAnchor">Edit</a>
@@ -97,7 +102,7 @@ function deleteEvent(){
     })
 }
 
-export function putEvent(prop) {
+export function putEvent() {
     $(".editAnchor").each(function(){
         $(this).click(function (e) {
             $('.editAnchor').text("Edit");

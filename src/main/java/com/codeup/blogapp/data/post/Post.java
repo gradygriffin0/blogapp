@@ -1,12 +1,31 @@
-package com.codeup.blogapp.data;
+package com.codeup.blogapp.data.post;
 
+import com.codeup.blogapp.data.category.Category;
+import com.codeup.blogapp.data.user.User;
+
+import javax.persistence.*;
 import java.util.Collection;
 
+//using jpa we can label this POJO @entity and give it a @table name
+@Entity
+@Table(name = "posts")
 public class Post {
-    private long id;
+    // @id/strategy = identify means primary key
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // insert columns
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false)
     private String content;
+
+
     private User user;
+
+
     private Collection<Category> categories;
 
     public Collection<Category> getCategories() {

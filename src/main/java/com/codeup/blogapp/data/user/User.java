@@ -1,14 +1,26 @@
-package com.codeup.blogapp.data;
+package com.codeup.blogapp.data.user;
 
-import java.util.Date;
+import com.codeup.blogapp.data.post.Post;
+
+import javax.persistence.*;
 import java.util.Collection;
 
+
+@Entity
+@Table(name="users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(nullable = false, length = 50)
     private String username;
+    @Column(nullable = false, length = 50)
     private String email;
+    @Column(nullable = false, length = 50)
     private String password;
 //    private Date createdAt;
+
     private Role role = Role.USER;
     private Collection<Post> posts;
 
