@@ -39,7 +39,7 @@ public class User {
     public User(String username){
         this.username = username;
     }
-    public User(long id, String username, String email, String password, Collection<Post> posts /*Date createdAt*/) {
+    public User(Long id, String username, String email, String password, Collection<Post> posts /*Date createdAt*/) {
         this.id = id;
         this.username = username;
         this.email = email;

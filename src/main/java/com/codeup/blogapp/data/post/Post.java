@@ -42,7 +42,7 @@ public class Post {
         this.categories = categories;
     }
 
-    public Post(long id, String title, String content, User user, Collection<Category> categories) {
+    public Post(Long id, String title, String content, User user, Collection<Category> categories) {
         this.id = id;
         this.title = title;
         this.content = content;

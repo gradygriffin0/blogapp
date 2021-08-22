@@ -24,7 +24,7 @@ public class Category {
         this.posts = posts;
     }
 
-    public Category(long id, String name) {
+    public Category(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -32,7 +32,7 @@ public class Category {
     public Category() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
