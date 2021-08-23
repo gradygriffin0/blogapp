@@ -2,6 +2,7 @@ package com.codeup.blogapp.data.post;
 
 import com.codeup.blogapp.data.category.Category;
 import com.codeup.blogapp.data.user.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -23,6 +24,7 @@ public class Post {
     private String content;
 
     @ManyToOne
+    @JsonManagedReference
     @JoinColumn(name = "user_id")
     private User user;
 
