@@ -16,6 +16,7 @@ public class CategoriesController {
 
     public CategoriesController(CategoryRepository catRepo){
         this.catRepo = catRepo;
+
     }
 
     @GetMapping
