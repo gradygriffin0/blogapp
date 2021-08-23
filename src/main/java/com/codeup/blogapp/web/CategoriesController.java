@@ -28,6 +28,6 @@ public class CategoriesController {
     @GetMapping("/{id}")
     private Category getPostsByCategory(@PathVariable Long id){
 
-        return catRepo.getById(id);
+        return catRepo.findById(id).get();
     }
 }

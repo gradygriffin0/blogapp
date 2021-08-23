@@ -1,6 +1,8 @@
 package com.codeup.blogapp.data.category;
 
 import com.codeup.blogapp.data.post.Post;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -14,6 +16,7 @@ public class Category {
     @Column(nullable = false)
     private String name;
     @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
     private Collection<Post> posts;
 
 

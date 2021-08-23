@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/posts", headers = "Accept=application/json")
@@ -29,7 +30,7 @@ public class PostsController {
 
     @GetMapping("{id}")
     private Post getPostById(@PathVariable Long id) {
-         return postsRepository.getById(id);
+         return postsRepository.findById(id).get();
     }
 
 
