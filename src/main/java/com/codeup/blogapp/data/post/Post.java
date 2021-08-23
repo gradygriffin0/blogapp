@@ -34,6 +34,10 @@ public class Post {
     )
     private Collection<Category> categories;
 
+    public Post() {
+
+    }
+
     public Collection<Category> getCategories() {
         return categories;
     }

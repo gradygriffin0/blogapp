@@ -25,9 +25,9 @@ public class CategoriesController {
 
     }
 
-    @GetMapping("/postsByCategory")
-    private List<Post> getPostsByCategory(@RequestParam Category category){
+    @GetMapping("/{id}")
+    private Category getPostsByCategory(@PathVariable Long id){
 
-        return (List<Post>) category.getPosts();
+        return catRepo.getById(id);
     }
 }

@@ -16,6 +16,7 @@ public class Category {
     @ManyToMany(mappedBy = "categories")
     private Collection<Post> posts;
 
+
     public Collection<Post> getPosts() {
         return posts;
     }
