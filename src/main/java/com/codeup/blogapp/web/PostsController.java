@@ -3,6 +3,7 @@ package com.codeup.blogapp.web;
 import com.codeup.blogapp.data.category.Category;
 import com.codeup.blogapp.data.post.Post;
 import com.codeup.blogapp.data.post.PostsRepository;
+import com.codeup.blogapp.data.services.EmailService;
 import com.codeup.blogapp.data.user.User;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,12 @@ public class PostsController {
 
 
     private final PostsRepository postsRepository;
+    private final EmailService emailService;
 
-     public PostsController(PostsRepository postsRepository) {
+
+     public PostsController(PostsRepository postsRepository, EmailService emailService) {
                 this.postsRepository = postsRepository;
+                this.emailService = emailService;
     }
 
     // depending on HTTP METHOD GET POST PUT DELETE on endpoint /api/posts -> the method with that annotation fires
@@ -37,6 +41,7 @@ public class PostsController {
     @PostMapping
     private void createPosts(@RequestBody Post newPost) {
         postsRepository.save(newPost);
+        emailService.prepareAndSend(newPost, "Test Subject", "Test Body");
     }
 
 

@@ -27,14 +27,14 @@ public class Post {
     private String content;
 
     @ManyToOne
-    @JsonIgnoreProperties({"password", "posts"})
+    @JsonIgnoreProperties({"posts","password"})
     private User user;
 
-    @ManyToMany(
-            cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}, targetEntity = Category.class)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH,
+            CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(
             name="post_category",
-            joinColumns={@JoinColumn(name = "post_id", nullable = false, updatable = false)},
+            joinColumns = {@JoinColumn(name = "post_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name="category_id", nullable = false, updatable = false)},
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)

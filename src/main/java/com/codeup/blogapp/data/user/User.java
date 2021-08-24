@@ -32,7 +32,7 @@ public class User {
     private Role role = Role.USER;
 
     @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
-    @JsonIgnoreProperties("user")
+    @JsonIgnoreProperties({"user"})
     private Collection<Post> posts;
 
     public enum Role {USER, ADMIN};

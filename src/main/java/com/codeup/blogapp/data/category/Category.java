@@ -16,14 +16,16 @@ public class Category {
     private long id;
     @Column(nullable = false)
     private String name;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}, targetEntity = Post.class)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH,
+            CascadeType.PERSIST, CascadeType.REFRESH}, targetEntity = Post.class)
     @JoinTable(
             name="post_category",
-            joinColumns={@JoinColumn(name = "category_id", nullable = false, updatable = false)},
+            joinColumns = {@JoinColumn(name = "category_id", nullable = false, updatable = false)},
             inverseJoinColumns = {@JoinColumn(name="post_id", nullable = false, updatable = false)},
             foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
             inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
     )
+    @JsonIgnore
     private Collection<Post> posts;
 
 
