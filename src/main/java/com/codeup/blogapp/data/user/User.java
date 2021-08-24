@@ -2,6 +2,7 @@ package com.codeup.blogapp.data.user;
 
 import com.codeup.blogapp.data.post.Post;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -30,8 +31,8 @@ public class User {
     @Column
     private Role role = Role.USER;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "id")
     @JsonManagedReference
+    @OneToMany(mappedBy = "user")
     private Collection<Post> posts;
 
     public enum Role {USER, ADMIN};

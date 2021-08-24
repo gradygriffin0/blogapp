@@ -2,6 +2,7 @@ package com.codeup.blogapp.data.category;
 
 import com.codeup.blogapp.data.post.Post;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -15,8 +16,15 @@ public class Category {
     private long id;
     @Column(nullable = false)
     private String name;
-    @ManyToMany(mappedBy = "categories")
-    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH}, targetEntity = Category.class)
+    @JoinTable(
+            name="post_category",
+            joinColumns={@JoinColumn(name = "category_id", nullable = false, updatable = false)},
+            inverseJoinColumns = {@JoinColumn(name="post_id", nullable = false, updatable = false)},
+            foreignKey = @ForeignKey(ConstraintMode.CONSTRAINT),
+            inverseForeignKey = @ForeignKey(ConstraintMode.CONSTRAINT)
+    )
+    @JsonIgnoreProperties("categories")
     private Collection<Post> posts;
 
 
