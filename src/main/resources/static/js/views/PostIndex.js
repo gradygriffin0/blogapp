@@ -63,21 +63,21 @@ export function loadEvents() {
     putEvent();
     deleteEvent();
 }
-function getUsersComponent(props){
-    return `<strong class="d-inline-block mb-2 text-primary">${props.categories.map(category => `${category.name}`)}</strong>`
+function getUsersComponent(post){
+    return `<strong class="d-inline-block mb-2 text-primary">${post.user.username}</strong>`
 
 }
 function getCategoriesComponent( post){
-    // return `<strong class="d-inline-block mb-2 text-primary">${post.categories.forEach(category => `${category.name}`)}</strong>`
+    return `<strong class="d-inline-block mb-2 text-primary">${post.category.forEach(cat => `${cat.name}` )}</strong>`
 }
 function getPostsComponent(props){
     return props.posts.map(post => ` <div data-id = "${post.id}" class="col-md-6 overflow-auto">
                       <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col p-4 d-flex flex-column position-static">
-                          ${getCategoriesComponent(post)}
+                          ${getUsersComponent(post)}
                           <h3 contenteditable="" class="titleClass mb-0">${post.title}</h3>
                           <p contenteditable="" class="contentClass card-text mb-auto">${post.content}.</p>
-                          ${getCategoriesComponent(post, props.categories)}
+                          ${getCategoriesComponent(post)}
                           <a data-id="${post.id}" href="#" class="editAnchor">Edit</a>
                           <a data-id="${post.id}" href="#" class="deleteAnchor">Delete</a>
                         </div>

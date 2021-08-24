@@ -31,8 +31,8 @@ public class User {
     @Column
     private Role role = Role.USER;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "user")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
+    @JsonIgnoreProperties("user")
     private Collection<Post> posts;
 
     public enum Role {USER, ADMIN};
