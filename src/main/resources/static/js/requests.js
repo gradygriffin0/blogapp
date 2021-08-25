@@ -25,5 +25,4 @@ function massagePosts(data) {
     }
 
     loadedPosts.push(post);
-    console.log(loadedPosts);
 }
