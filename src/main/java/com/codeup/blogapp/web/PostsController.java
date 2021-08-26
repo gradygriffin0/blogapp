@@ -45,8 +45,8 @@ public class PostsController {
     }
 
 
-    @PutMapping("/{id}")
-    private void updatePost(@PathVariable Long id, @RequestBody Post post) {
+    @PutMapping()
+    private void updatePost( @RequestBody Post post) {
         postsRepository.save(post);
     }
 

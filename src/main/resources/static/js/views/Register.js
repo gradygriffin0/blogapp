@@ -94,10 +94,10 @@ function submitForm(){
         //     flag = true;
         // }
 
-        if (!($("#passwordInput").val().length >= 5)){
-            alert("Password needs to be at-least 5 characters");
-            flag = true;
-        }
+        // if (!($("#passwordInput").val().length >= 5)){
+        //     alert("Password needs to be at-least 5 characters");
+        //     flag = true;
+        // }
         if (!($("#passwordInput").val() === $("#passwordConfirmInput").val())){
             alert("Passwords do not match");
             flag = true;
@@ -105,15 +105,15 @@ function submitForm(){
         if (flag === true){
             return;
         } else {
+            // createdAt: new Date().getTime(),
             let user = {
                 username: $("#usernameInput").val(),
                 email: $("#emailInput").val(),
-                password: $("#emailInput").val(),
-                createdAt: new Date().getTime(),
+                password: $("#passwordInput").val(),
                 role: 'USER'
             }
             $.ajax({
-                url: "http://localhost:8080/api/users",
+                url: "http://localhost:8080/api/users/create",
                 method: "POST",
                 headers: {
                     "accept" : "application/json",

@@ -17,13 +17,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String username;
 
     @Email
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String email;
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false)
     private String password;
 //    private Date createdAt;
 
@@ -31,8 +31,8 @@ public class User {
     @Column
     private Role role = Role.USER;
 
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "user")
-    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties("user")
     private Collection<Post> posts;
 
     public enum Role {USER, ADMIN};

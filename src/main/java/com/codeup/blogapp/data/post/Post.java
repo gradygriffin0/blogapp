@@ -23,14 +23,15 @@ public class Post {
     @Column(nullable = false, length = 100)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2000)
     private String content;
 
     @ManyToOne
     @JsonIgnoreProperties({"posts","password"})
     private User user;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH}, targetEntity = Category.class)
+    @ManyToMany(fetch =  FetchType.LAZY,
+            cascade = { CascadeType.DETACH, CascadeType.REFRESH}, targetEntity = Category.class)
     @JoinTable(
             name="post_category",
             joinColumns = {@JoinColumn(name = "post_id", nullable = false, updatable = false)},

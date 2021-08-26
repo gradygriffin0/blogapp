@@ -1,5 +1,6 @@
 import createView from "../createView.js";
 import fetchData from "../fetchData.js";
+import {getHeaders} from "../auth.js";
 
 
 export default function PostIndex(props) {
@@ -65,12 +66,12 @@ export function loadEvents() {
 }
 function getUsersComponent(post){
     console.log(post)
-    return `<strong class="d-inline-block mb-2 text-primary">@${post.user.username}</strong>`
+    return `<strong data-id="${post.user.id}" class="user-component d-inline-block mb-2 text-primary">@${post.user.username}</strong>`
 
 }
 function getCategoriesComponent( post){
 
-    return `<strong class="d-inline-block mb-2 text-primary">${post.categories.map(cat => `${cat.name} `).replaceAll(',',' ')}</strong>`
+    return `<strong data-id="${post.categories.map(cat => `${cat.id}`)}" class="d-inline-block mb-2 category-component text-primary">${post.categories.map(cat => `${cat.name}`)}</strong>`
 }
 function getPostsComponent(props){
     return props.posts.map(post => ` <div data-id = "${post.id}" class="col-12 overflow-auto">
@@ -147,16 +148,47 @@ export function putEvent() {
 function submitSavedEdits(){
     let $content = $(this).siblings(".contentClass");
     let $title = $(this).siblings(".titleClass");
-    let post = {
-        id: $(this).attr('data-id'),
-        title: $title.text(),
-        content: $content.text()
+    let userId = $(this).siblings(".user-component").attr("data-id");
+    let post;
+    let catString = $(this).siblings(".category-component").attr("data-id")
+    console.log(catString);
+
+
+    if (catString != ""){
+    let newString = catString.split(',')
+        let obj = "";
+        newString.forEach(function(categoryid){
+            obj += `{ "id": ${categoryid}},`
+
+        })
+         post = {
+            id: $(this).attr('data-id'),
+            title: $title.text(),
+            content: $content.text(),
+            user: {
+                id: userId
+            },
+            categories: `[${obj.substring(0, obj.length - 1)}]`
+        }
+
+    } else {
+         post = {
+            id: $(this).attr('data-id'),
+            title: $title.text(),
+            content: $content.text(),
+            user: {
+                id: userId
+            }
+        }
     }
+    console.log(JSON.stringify(post));
+
+
 
     $.ajax({
-        url: `http://localhost:8080/api/posts/${post.id}`,
+        url: `http://localhost:8080/api/posts/`,
         type: "PUT",
-        headers: {"content-type": "application/json"},
+        headers: getHeaders(),
         data: JSON.stringify(post)
 
     })
@@ -172,14 +204,17 @@ export function postEvent() {
         $("#createPostButton").click(function () {
             let post = {
                 "title": `${$("#titleBody").val()}`,
-                "content": `${$("#textBody").val()}`
+                "content": `${$("#textBody").val()}`,
+                "user" : {
+                    "id" : 1
+                }
             }
             let readyPost = JSON.stringify(post);
 
             $.ajax({
                 url: "http://localhost:8080/api/posts",
                 type: "POST",
-                headers: {"content-type": "application/json"},
+                headers: getHeaders(),
                 data: readyPost
 
             }).success(function (e) {

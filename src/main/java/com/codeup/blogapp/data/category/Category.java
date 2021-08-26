@@ -13,10 +13,10 @@ import java.util.Collection;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(nullable = false)
     private String name;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.DETACH,
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH,
              CascadeType.REFRESH}, targetEntity = Post.class)
     @JoinTable(
             name="post_category",

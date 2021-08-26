@@ -1,3 +1,5 @@
+import addLoginEvent from "../auth.js";
+
 export default function Login(props) {
     return `
 <!DOCTYPE html>
@@ -16,22 +18,15 @@ export default function Login(props) {
             <div class="row justify-content-center">
               <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
 
-                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Login</p>
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Welcome</p>
 
                 <form class="mx-1 mx-md-4">
 
-                  <div class="d-flex flex-row align-items-center mb-4">
-                    <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                    <div class="form-outline flex-fill mb-0">
-                      <input id="usernameInput" type="text" id="form3Example1c" class="form-control" />
-                      <label class="form-label" for="form3Example1c">Username</label>
-                    </div>
-                  </div>
 
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input id="emailInput" type="email" id="form3Example3c" class="form-control" />
+                      <input id="username" type="email" id="form3Example3c" class="form-control" />
                       <label class="form-label" for="form3Example3c">Email</label>
                     </div>
                   </div>
@@ -39,13 +34,13 @@ export default function Login(props) {
                   <div class="d-flex flex-row align-items-center mb-4">
                     <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                     <div class="form-outline flex-fill mb-0">
-                      <input id="passwordInput" type="password" id="form3Example4c" class="form-control" />
+                      <input id="password" type="password" id="form3Example4c" class="form-control" />
                       <label class="form-label" for="form3Example4c">Password</label>
                     </div>
                   </div>
 
                   <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                    <button id="registerButton" type="button" class="btn btn-primary btn-lg">Register</button>
+                    <button id="login-btn" type="button" class="btn btn-primary btn-lg">Login</button>
                   </div>
 
                 </form>
@@ -61,5 +56,4 @@ export default function Login(props) {
 </body>
 </html>`;
 }
-
 
