@@ -209,6 +209,8 @@ export function postEvent() {
                     "id" : 1
                 }
             }
+
+
             let readyPost = JSON.stringify(post);
 
             $.ajax({
