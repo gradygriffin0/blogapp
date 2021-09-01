@@ -3,6 +3,7 @@ package com.codeup.blogapp.web;
 import com.codeup.blogapp.data.post.Post;
 import com.codeup.blogapp.data.user.User;
 import com.codeup.blogapp.data.user.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class UsersController {
     }
 
     @GetMapping()
+    @PreAuthorize("!hasAuthority('USER')")
     private List<User> UsersController(){
         return userRepository.findAll();
     }

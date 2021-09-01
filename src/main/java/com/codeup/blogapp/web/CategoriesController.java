@@ -3,6 +3,7 @@ package com.codeup.blogapp.web;
 import com.codeup.blogapp.data.category.Category;
 import com.codeup.blogapp.data.category.CategoryRepository;
 import com.codeup.blogapp.data.post.Post;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ public class CategoriesController {
     }
 
     @GetMapping
+    @PreAuthorize("!hasAuthority('USER')")
     private List<Category> getCategories(){
         return catRepo.findAll();
 
